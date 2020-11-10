@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /local-path/:/src
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: .
+      dockerfile: './php/.dockerfile'
+    volumes:
+      - /local-path/:/src
